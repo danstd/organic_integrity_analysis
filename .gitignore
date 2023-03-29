@@ -1,0 +1,10 @@
+authentication/**
+integrity_download?/**
+*.csv
+*.png
+*.xml
+*.pyc
+*.json
+*.pkl
+*.txt
+.env

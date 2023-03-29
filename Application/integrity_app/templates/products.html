@@ -1,0 +1,253 @@
+<html class="has-sticky-footer">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--Latest compiled and minified CSS -->
+        <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+		
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        -->
+		<!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.5.1/js/bootstrap.min.js"></script> -->
+
+		<!-- Data tables-->
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.css">
+		<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				//$('#top_10_crops_tbl').DataTable();
+				//$('#top_10_handling_tbl').DataTable();
+				//$('#top_10_livestock_tbl').DataTable();
+				//$('#top_10_wild_tbl').DataTable();
+				$('#top_by_country_tbl').DataTable();
+				$('#top_by_country_scope_tbl').DataTable();
+			});
+			</script>
+
+        <title>Organic Integrity - Products</title>
+	<style>
+	p.padding_left {
+	  padding-left: 5%;
+	}
+	.table-responsive {
+    max-height:500px;
+}
+
+	</style>
+    </head>
+
+    <body>
+		<hr/>
+		<nav class="navbar navbar-expand-md bg-info navbar-dark">
+		
+			<a class="navbar-brand" href= "{{ url_for('index') }}">Home</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsible_navbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			<div class="nav navbar-nav navbar-right mr-auto">
+				<a class="nav-item nav-link mx-3 active" href="{{ url_for('world') }}">View global certification page</a>
+				<a class="nav-item nav-link mx-3 active" href="{{ url_for('united_states') }}">View U.S. certification page</a>
+				<a class="nav-item nav-link mx-3 active" href="{{ url_for('us_forecasting') }}">View U.S. certification forecasting page</a>
+				<a class="nav-item nav-link mx-3 inactive" href="{{ url_for('products') }}">View products page</a>
+			</div>
+		</nav>
+		<hr/>
+		<!--<div class="jumbotron">
+		  <h2 style="text-align:center;">Certified Organic Products</h2>
+		</div>-->
+			
+		<div class="container-fluid">
+
+			<div class="row">
+				<!-- Total Item Counts -->
+				<div class="col-lg-6">
+					<div class="container mt-3">
+					  <h3>Top Ten Items By Scope</h3>
+					  <br>
+					  <!-- Nav tabs -->
+					  <ul class="nav nav-tabs">
+						<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#top_10_crops">Crops</a></li>
+						<li class="nav-item"><a class="nav-link " data-toggle="tab" href="#top_10_handling">Handling</a></li>
+						<li class="nav-item"><a class="nav-link " data-toggle="tab" href="#top_10_livestock">Livestock</a></li>
+						<li class="nav-item"><a class="nav-link " data-toggle="tab" href="#top_10_wild">Wild Crops</a></li>
+					  </ul>
+
+					  <!-- Tab panels -->
+					  <div class="tab-content">
+						<div id="top_10_crops" class="container tab-pane active"><br>
+							<!-- Download button-->
+							<!--<div class="text-right">
+								<input type="submit" class="btn btn-light btn-sm" value="Download">
+							</div> -->
+							<table class="table table-responsive table-hover" style="font-size: 12px; width: 50%" id="top_10_crops_tbl">
+								<thead>
+									<th>Item</th>
+									<th>Number of Listings</th>
+								</thead>
+								<tbody>
+								{% for item, count in top_items_crops %}
+									<tr>
+										<td>{{ item }}</td>
+										<td>{{ count }}</td>
+									</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+						</div> <!-- End of crops tab -->
+						<div id="top_10_handling" class="container tab-pane"><br>
+							<!-- Download button-->
+							<!-- <div class="text-right">
+								<input type="submit" class="btn btn-light btn-sm" value="Download">
+							</div> -->
+							<table class="table table-responsive table-hover" style="font-size: 12px; width: 50%" id="top_10_handling_tbl">
+								<thead>
+									<th>Item</th>
+									<th>Number of Listings</th>
+								</thead>
+								<tbody>
+								{% for item, count in top_items_handling %}
+									<tr>
+										<td>{{ item }}</td>
+										<td>{{ count }}</td>
+									</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+						</div> <!-- End of handling tab -->
+						<div id="top_10_livestock" class="container tab-pane"><br>
+							<!-- Download button-->
+							<!--<div class="text-right">
+								<input type="submit" class="btn btn-light btn-sm" value="Download">
+							</div> -->
+							<table class="table table-responsive table-hover" style="font-size: 12px; width: 50%" id="top_10_livestock_tbl">
+								<thead>
+									<th>Item</th>
+									<th>Number of Listings</th>
+								</thead>
+								<tbody>
+								{% for item, count in top_items_livestock %}
+									<tr>
+										<td>{{ item }}</td>
+										<td>{{ count }}</td>
+									</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+						</div> <!-- End of livestock tab -->
+						<div id="top_10_wild" class="container tab-pane"><br>
+							<!-- Download button-->
+							<!-- <div class="text-right">
+								<input type="submit" class="btn btn-light btn-sm" value="Download">
+							</div> -->
+							<table class="table table-responsive table-hover" style="font-size: 12px; width: 50%" id="top_10_wild_tbl">
+								<thead>
+									<th>Item</th>
+									<th>Number of Listings</th>
+								</thead>
+								<tbody>
+								{% for item, count in top_items_wild %}
+									<tr>
+										<td>{{ item }}</td>
+										<td>{{ count }}</td>
+									</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+						</div> <!-- End of wild crops tab -->
+					  </div>
+					</div>
+				</div>
+				<!-- Top item by country -->
+				<div class="col-lg-6">
+					<div class="container mt-3">
+					  <h3>Top Items By Country</h3>
+					  <br>
+					  <!-- Nav tabs -->
+					  <ul class="nav nav-tabs">
+						<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#top_country">Top By Country</a></li>
+						<li class="nav-item"><a class="nav-link " data-toggle="tab" href="#top_country_scope">Top By Country and Scope</a></li>
+					  </ul>
+					  <!-- Tab panels -->
+					  <div class="tab-content">
+						<div id="top_country" class="container tab-pane active"><br>
+							<!-- Download button-->
+							<!-- <div class="text-right">
+								<input type="submit" class="btn btn-light btn-sm" value="Download">
+							</div> -->
+
+						  <table class="table table-responsive table-hover" style="font-size: 12px; width: 100%"  id="top_by_country_tbl">
+								<thead style="position: sticky; background-color: white; top: 0">
+									<th>Country</th>
+									<th>Item</th>
+									<th>Number of Listings</th>
+								</thead>
+								<tbody>
+								{% for country, item, count in top_by_country %}
+									<tr>
+										<td>{{ country }}</td>
+										<td>{{ item }}</td>
+										<td>{{ count }}</td>
+									</tr>
+								{% endfor %}
+								</tbody>
+						  </table>
+						  </div> <!-- End of top by country tab -->
+						  <div id="top_country_scope" class="container tab-pane"><br>
+							<!-- Download button-->
+							<!-- <div class="text-right">
+								<input type="submit" class="btn btn-light btn-sm" value="Download">
+							</div> -->
+						  <table class="table table-responsive table-hover" style="font-size: 12px; width: 100%" id="top_by_country_scope_tbl">
+								<thead style="position: sticky; background-color: white; top: 0">
+									<th>Country</th>
+									<th>Crops</th>
+									<th>Handling</th>
+									<th>Livestock</th>
+									<th>Wild Crops</th>
+								</thead>
+								<tbody>
+								{% for country, crops, handling, livestock, wild in top_by_country_scope %}
+									<tr>
+										<td>{{ country }}</td>
+										<td>{{ crops }}</td>
+										<td>{{ handling }}</td>
+										<td>{{ livestock }}</td>
+										<td>{{ wild }}</td>
+									</tr>
+								{% endfor %}
+								</tbody>
+						  </table>
+						  </div> <!-- End of top by country and scope tab -->
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+		
+		</body>
+		<!-- Footer -->
+		<!-- Footer styling: https://stackoverflow.com/questions/51480958/bootstrap-4-footer-not-at-bottom -->
+        <footer class="d-flex justify-content-center mt-auto">
+            <div class="d-flex justify-content-between col-md-7 col-md mb-3 mt-5">
+				<div class="align-middle">
+					<a class="font-weight-bold small kf-blue kf-links" href="https://github.com/danstd/organic_integrity_flask">Github</a> |
+                    <a class="font-weight-bold small kf-blue kf-links" href="https://organic.ams.usda.gov/Integrity/Developer/APIHelp.aspx">Organic Integrity</a>
+                </div>
+				<div class="align-middle">
+					<i>This product uses USDA’s Organic Integrity Database API but is not endorsed or certified by USDA.</i>
+				</div>
+            </div>
+        </footer>
+</html>

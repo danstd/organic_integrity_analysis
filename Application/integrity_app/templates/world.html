@@ -1,0 +1,229 @@
+<html class="has-sticky-footer">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--Latest compiled and minified CSS -->
+        <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+		
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        -->
+		<!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.5.1/js/bootstrap.min.js"></script> -->
+
+		<!-- Plotly-->
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+		<!-- Data tables-->
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.css">
+		<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#cert_status').DataTable();
+			});
+			</script>
+			
+        <title>Organic Integrity - Certification Globally</title>
+	<style>
+	p.padding_left {
+	  padding-left: 5%;
+	}
+	.table-responsive {
+    max-height:500px;
+}
+
+	</style>
+
+    </head>
+
+    <body>
+		<hr/>
+		<nav class="navbar navbar-expand-md bg-info navbar-dark">
+		
+			<a class="navbar-brand" href= "{{ url_for('index') }}">Home</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsible_navbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			<div class="nav navbar-nav navbar-right mr-auto">
+				<a class="nav-item nav-link mx-3 inactive" href="{{ url_for('world') }}">View global certification page</a>
+				<a class="nav-item nav-link mx-3 active" href="{{ url_for('united_states') }}">View U.S. certification page</a>
+				<a class="nav-item nav-link mx-3 active" href="{{ url_for('us_forecasting') }}">View U.S. certification forecasting page</a>
+				<a class="nav-item nav-link mx-3 active" href="{{ url_for('products') }}">View products page</a>
+			</div>
+		</nav>
+		<hr/>
+		<!--<div class="jumbotron">
+		  <h2 style="text-align:center;">USDA Organic Certification- Global</h2>
+		</div> -->
+		<div class="container-fluid">
+
+			<div class="row">
+				<!-- Certification status trends and counts -->
+				<div class="col-lg-6">
+					<div class="container mt-3">
+					  <h3>Certification Trends</h3>
+					  <br>
+					  <!-- Nav tabs -->
+					  <ul class="nav nav-tabs">
+						<li class="nav-item">
+						  <a class="nav-link active" data-toggle="tab" href="#home">Certification Status Trends</a>
+						</li>
+						<li class="nav-item">
+						  <a class="nav-link" data-toggle="tab" href="#menu1">Certification Trend</a>
+						</li>
+						<li class="nav-item">
+						  <a class="nav-link" data-toggle="tab" href="#menu2">Certification By Country</a>
+						</li>
+					  </ul>
+
+					  <!-- Tab panels -->
+					  <div class="tab-content">
+						<div id="home" class="container tab-pane active"><br>
+						  <h4>Certification Trends By Status</h4>
+						  <p>This chart shows monthly certification status changes for the previous 10 years.
+							Due to reporting requirements, certifying agencies must update their data at least once
+							by January of each year.
+							Therefore it may take up to a year for the full counts to be received.
+							Judging from the data, it appears that certification surrenders were not tracked before 2019
+						  </p>
+						  <!--<img class="img-responsive" src="{{ url_for('static', filename='images/certification_date.png') }}" alt="Chart" style="width:100%">-->
+						  <div id='world_certification_status_trend_div'></div>
+							<script type="text/javascript">
+									var world_certification_status_trend_graph = {{ world_certification_status_trend | safe}};
+									Plotly.plot("world_certification_status_trend_div", world_certification_status_trend_graph, {});
+							</script>
+						</div>
+						<div id="menu1" class="container tab-pane fade"><br>
+						  <h4>Overall Certification Change Over Time</h4>
+						  <p>Below, the net change in certification is shown as
+						     Certified - (Surrendered, Suspended, and Revoked)
+							 The status 'Applied; APEDA Certified' is not included.
+						  </p>
+						  <!--<img class="img-responsive" src="{{ url_for('static', filename='images/certification_date_basic.png') }}" alt="Chart" style="width:100%">-->
+						  <div id='world_certification_change_div'></div>
+							<script type="text/javascript">
+									var world_certification_change_graph = {{ world_certification_change | safe}};
+									Plotly.plot("world_certification_change_div", world_certification_change_graph, {});
+							</script>
+						</div>
+						<div id="menu2" class="container tab-pane fade"><br>
+						  <h4>Certification Status Breakdown By County</h4>
+							<p>This table shows the count of certification statuses by country.
+								Note that overall counts are given under the name <i>All Countries</i>.
+							</p>
+							<table class="table table-responsive table-hover" style="font-size: 12px; width: 100%" id="cert_status">
+
+								<thead style="position: sticky; background-color: white; top: 0">
+									{% for col in country_table_cols %}
+										<th>{{ col }}</th>
+									{% endfor %}
+								</thead>
+								<tbody style="margin-top: 16px">
+									{% for country in country_table %}
+										<tr style>
+											{% for attribute in country %}
+												<td>{{ attribute}}</td>
+											{% endfor %}
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					  </div>
+					</div>
+				</div>
+				<!-- Certification Scope Views -->
+				<div class="col-lg-6">
+					<div class="container mt-3">
+					  <h3>Scopes of Certification</h3>
+					  <br>
+					  <!-- Nav tabs -->
+					  <ul class="nav nav-tabs">
+						<li class="nav-item">
+						  <a class="nav-link active" data-toggle="tab" href="#scope_cards">Count of Certified Scopes</a>
+						</li>
+						<li class="nav-item">
+						  <a class="nav-link" data-toggle="tab" href="#scope_combos">Certification Scope Combinations</a>
+						</li>
+					  </ul>
+
+					  <!-- tab panels -->
+					  <div class="tab-content">
+						<div id="scope_cards" class="container tab-pane active"><br>
+						  <h4>Overall Count of Certification Scopes</h4>
+						  <p>The cards below show the count of organic-certified operations by certification scope.
+							These scopes are not mutually exclusive and many operations are certified for multiple scopes.
+							See the Scope Combination section for an overview on this.
+						  </p>
+						  <div class="card-columns">
+							{% for scope, scope_count in scope_cards.items() %}
+							<div class="card mb-3 text-center">
+							  <div class="card-header card mb-3">{{ scope }}</div>
+							  <div class="card-body">
+								<h5 class="card-title">{{ scope_count }}</h5>
+								<!--<p class="card-text">Example text.</p> -->
+							  </div>
+							</div>
+							{% endfor %}
+							</div>
+						</div>
+						<div id="scope_combos" class="container tab-pane fade"><br>
+						  <h4>Certified Scope Combinations</h4>
+						  <p>This table shows combinations of certified scopes in decreasing order of prevalence</p>
+						  <table class="table table-responsive table-hover bg-light" style="font-size: 12px; width: 100%">
+							<thead style="position: sticky; background-color: white; top: 0">
+								<tr>
+									{% for col in scopes_combo_cols %}
+									<th>{{col }}</th>
+									{% endfor %}
+							  </tr>
+							</thead>
+							<tbody>
+								{% for record in scopes_combo %}
+								<tr>
+									{% for entry in range(0,record|length) %}
+										{% if entry == 0 %} <!-- If first entry -->
+											<td class="mb-3 text-center border border-dark">{{ record[entry] }} %</td>
+										{% elif record[entry] != "" %}
+											<td class="mb-3 text-center border border-dark">{{ record[entry] }}</td>
+										{% else %}
+											<td class="table-light"></td>
+										{% endif %}
+									{% endfor %}
+								</tr>
+								{% endfor %}
+							</tbody>
+						  </table>
+						</div>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		</body>
+		<!-- Footer -->
+		<!-- Footer styling: https://stackoverflow.com/questions/51480958/bootstrap-4-footer-not-at-bottom -->
+        <footer class="d-flex justify-content-center mt-auto">
+            <div class="d-flex justify-content-between col-md-7 col-md mb-3 mt-5">
+				<div class="align-middle">
+					<a class="font-weight-bold small kf-blue kf-links" href="https://github.com/danstd/organic_integrity_flask">Github</a> |
+                    <a class="font-weight-bold small kf-blue kf-links" href="https://organic.ams.usda.gov/Integrity/Developer/APIHelp.aspx">Organic Integrity</a>
+                </div>
+				<div class="align-middle">
+					<i>This product uses USDA’s Organic Integrity Database API but is not endorsed or certified by USDA.</i>
+				</div>
+            </div>
+        </footer>
+</html>

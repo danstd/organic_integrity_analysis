@@ -1,0 +1,93 @@
+<html class="has-sticky-footer">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--Latest compiled and minified CSS -->
+        <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+		
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        -->
+		<!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.5.1/js/bootstrap.min.js"></script> -->
+
+        <title>Organic Integrity</title>
+	<style>
+	p.padding_left {
+	  padding-left: 5%;
+	}
+	.table-responsive {
+    max-height:500px;
+	max-width: 500px;
+	}
+
+	</style>
+    </head>
+
+    <body>
+		<!--<div class="container-fluid bg-light">
+			<h3 style="text-align:center;">USDA National Organic Program Certification Dashboard</h3>
+		</div> -->
+		<hr/>
+		<nav class="navbar navbar-expand-md bg-info navbar-dark">
+		
+			<a class="navbar-brand inactive" href= "{{ url_for('index') }}">Home</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsible_navbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			<div class="nav navbar-nav navbar-right mr-auto">
+				<a class="nav-item nav-link mx-3 active" href="{{ url_for('world') }}">View global certification page</a>
+				<a class="nav-item nav-link mx-3 active" href="{{ url_for('united_states') }}">View U.S. certification page</a>
+				<a class="nav-item nav-link mx-3 active" href="{{ url_for('us_forecasting') }}">View U.S. certification forecasting page</a>
+				<a class="nav-item nav-link mx-3 active" href="{{ url_for('products') }}">View products page</a>
+			</div>
+		</nav>
+		<hr/>
+		<!--<div class="container-fluid">
+			<p>This website is a dashboard for analytics on USDA National Organic Program Certification. As noted at the bottom
+					of each page, this website is not endorsed by or certified the United States Department of Agriculture, and uses
+					data from the USDA Organic Integrity Database API. Please see the Organic Integrity link at the bottom of each page.
+					<br> Please also find the github link to this project's code at the bottom of the page.
+			</p>
+		</div> -->
+		
+
+		<div class="jumbotron">
+			<h1 class="display-4">USDA Organic Integrity Database Analytics Dashboard</h1>
+			<p class="lead">This website is a dashboard for analytics on USDA National Organic Program Certification. As noted at the bottom
+				of each page, this website is not endorsed by or certified the United States Department of Agriculture, and uses
+				data from the USDA Organic Integrity Database API. Please also find the github link to this project's code at the bottom of the page.</p>
+			<br>
+			<hr class="my-4">
+			<h3>Dashboard Pages</h3>
+			<ul>
+				<li><b>Global Certification:</b> An overview of USDA organic certification overall, and broken down by country.</li>
+				<li><b>U.S. Certification:</b> Information on USDA organic certification specifically in the United States, with state-specific information.</li>
+				<li><b>U.S. Certification Forecasting:</b> forecasting of certified operation count in the United States.</li>
+				<li><b>Products:</b> Information on most common products overall, by country, and by certification scope.</li>
+			</ul>
+		</div>
+
+		</body>
+		<!-- Footer -->
+		<!-- Footer styling: https://stackoverflow.com/questions/51480958/bootstrap-4-footer-not-at-bottom -->
+        <footer class="d-flex justify-content-center mt-auto">
+            <div class="d-flex justify-content-between col-md-7 col-md mb-3 mt-5">
+				<div class="align-middle">
+					<a class="font-weight-bold small kf-blue kf-links" href="https://github.com/danstd/organic_integrity_flask">Github</a> |
+                    <a class="font-weight-bold small kf-blue kf-links" href="https://organic.ams.usda.gov/Integrity/Developer/APIHelp.aspx">Organic Integrity</a>
+                </div>
+				<div class="align-middle">
+					<i>This product uses USDA’s Organic Integrity Database API but is not endorsed or certified by USDA.</i>
+				</div>
+            </div>
+        </footer>
+</html>

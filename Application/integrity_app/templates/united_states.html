@@ -1,0 +1,217 @@
+<html class="has-sticky-footer">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--Latest compiled and minified CSS -->
+        <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+		
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        -->
+		<!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.5.1/js/bootstrap.min.js"></script> -->
+
+		<!-- Plotly-->
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+		<!-- Data tables-->
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.css">
+		<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#op_by_state_tbl').DataTable();
+				$('#scope_by_state_tbl').DataTable();
+			});
+			</script>
+
+        <title>Organic Integrity - Certification in U.S.</title>
+	<style>
+	p.padding_left {
+	  padding-left: 5%;
+	}
+	.table-responsive {
+    max-height:500px;
+}
+
+	</style>
+    </head>
+
+    <body>
+		<hr/>
+		<nav class="navbar navbar-expand-md bg-info navbar-dark">
+		
+			<a class="navbar-brand" href= "{{ url_for('index') }}">Home</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsible_navbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			<div class="nav navbar-nav navbar-right mr-auto">
+				<a class="nav-item nav-link mx-3 active" href="{{ url_for('world') }}">View global certification page</a>
+				<a class="nav-item nav-link mx-3 inactive" href="{{ url_for('united_states') }}">View U.S. certification page</a>
+				<a class="nav-item nav-link mx-3 active" href="{{ url_for('us_forecasting') }}">View U.S. certification forecasting page</a>
+				<a class="nav-item nav-link mx-3 active" href="{{ url_for('products') }}">View products page</a>
+			</div>
+		</nav>
+		<hr/>
+		<!-- <div class="jumbotron">
+			<h3 style="text-align:center;">Organic Certification Status Counts and Trends - United States</h3>
+		</div> -->
+		<div class="container-fluid">
+			<div class="row">
+				<!-- Certification status trends and counts -->
+				<div class="col-lg-6">
+					<div class="container mt-3">
+					  <h3>Certification Breakdown by State</h3>
+					  <br>
+					  <!-- Nav tabs -->
+					  <ul class="nav nav-tabs">
+						<li class="nav-item">
+						  <a class="nav-link active" data-toggle="tab" href="#op_by_state">U.S. Organic Operations By State</a>
+						</li>
+						<li class="nav-item">
+						  <a class="nav-link" data-toggle="tab" href="#scope_by_state">U.S. Certified Scopes By State</a>
+						</li>
+					  </ul>
+
+					  <!-- Tab panels -->
+					  
+					  <!--US Organic Operations By State Table-->
+					  <div class="tab-content">
+						<div id="op_by_state" class="container tab-pane active"><br>
+						  <h4>U.S. Organic Operations By State</h4>
+						  <p>This table shows the breakdown of certification status by state.
+						  </p>
+								<table class="table table-responsive table-hover" style="font-size: 12px; width: 100%" id="op_by_state_tbl">
+									<thead style="position: sticky; background-color: white; top: 0">
+										{% for col in us_table_cols %}
+											<th>{{ col }}</th>
+										{% endfor %}
+									</thead>
+									<tbody style="margin-top: 16px">
+										{% for state in us_table %}
+											<tr style>
+												{% for attribute in state %}
+													<td>{{ attribute}}</td>
+												{% endfor %}
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table> 
+						</div> <!-- First tab end -->
+						<!--US Organic Scopes Count By State Table-->
+						<div id="scope_by_state" class="container tab-pane fade"><br>
+						  <h4>U.S. Certified Scopes By State</h4>
+						  <p>Below, the number of certified scopes by state is shown. Note that scopes are not mutually exclusive.</p>
+							<table class="table table-responsive table-hover" style="font-size: 12px; width: 100%" id="scope_by_state_tbl">
+								<thead style="position: sticky; background-color: white; top: 0">
+									<th>State</th>
+									<th>Handling</th>
+									<th>Crops</th>
+									<th>Livestock</th>
+									<th>Wild Crops</th>
+								</thead>
+								<tbody style="margin-top: 16px">
+									{% for state in us_scopes_display %}
+										<tr style">
+											{% for attribute in state %}
+												<td>{{ attribute}}</td>
+											{% endfor %}
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div> <!-- Second tab end -->
+					
+					  </div> <!-- Tab content end -->
+					</div> <!-- Nav container end -->
+				</div> <!-- Certification status trends and counts column end -->
+				<div class="col-lg-6"> <!-- Certification trend plots column -->
+					<div class="container mt-3">
+					  <h3>Certification Trends</h3>
+					  <br>
+					  <!-- Nav tabs -->
+					  <ul class="nav nav-tabs">
+						<li class="nav-item">
+						  <a class="nav-link" data-toggle="tab" href="#cert_status_trend">U.S. Monthly Certification Status Changes</a>
+						</li>
+						<li class="nav-item">
+						  <a class="nav-link" data-toggle="tab" href="#cert_trend">U.S. Certification Trend</a>
+						</li>
+						<li class="nav-item">
+						  <a class="nav-link active" data-toggle="tab" href="#cert_count">U.S. Certification Over Time</a>
+						</li>
+					  </ul>
+
+					  <!-- Tab panels -->
+					  <div class="tab-content">
+						<!-- U.S. Monthly Certification Status Change Plot -->
+						<div id="cert_status_trend" class="container tab-pane fade"><br>
+						  <h4>U.S. Monthly Certification Status Changes</h4>
+						  <p>This chart shows monthly certification status changes for the previous 10 years.
+							Due to reporting requirements, certifying agencies must update their data at least once
+							by January of each year.
+							Therefore it may take up to a year for the full counts to be received.</p>
+						  <!-- <img class="img-responsive" src="{{ url_for('static', filename='images/us_certification_date.png') }}" alt="Chart" style="width:100%"> -->
+						  <div id='us_certification_status_trend_div'></div>
+							<script type="text/javascript">
+									var us_certification_status_trend_graph = {{ us_certification_status_trend | safe}};
+									Plotly.plot("us_certification_status_trend_div", us_certification_status_trend_graph, {});
+							</script>
+						</div> <!-- tab end -->
+						
+						<!-- US Certification Trends Plot -->
+						<div id="cert_trend" class="container tab-pane fade"><br>
+						  <h4>U.S. Monthly Certification Trends</h4>
+						  <p>Below, the net change in certification is shown as
+						     Certified - (Surrendered, Suspended, and Revoked)</p>
+						  <!-- <img class="img-responsive" src="{{ url_for('static', filename='images/us_certification_date_basic.png') }}" alt="Chart" style="width:100%"> -->
+						  <div id='us_certification_change_div'></div>
+							<script type="text/javascript">
+									var us_certification_change_graph = {{ us_certification_change | safe}};
+									Plotly.plot("us_certification_change_div", us_certification_change_graph, {});
+							</script>
+						</div> <!-- tab end -->
+						
+						<!-- US Certification Count Over Time Plot -->
+						<div id="cert_count" class="container tab-pane active"><br>
+						  <h4>U.S. Certification Over Time</h4>
+						  <p>Below, the estimated total count of certified operations in the U.S. over time is shown. 
+						  This has been calculated by reversing monthly changes over time from the current count of 
+						  certified operations.</p>
+						  <!-- <img class="img-responsive" src="{{ url_for('static', filename='images/us_certification_count.png') }}" alt="Chart" style="width:100%"> -->
+						  <div id='us_certification_count_div'></div>
+							<script type="text/javascript">
+									var us_certification_count_graph = {{ us_certification_count | safe}};
+									Plotly.plot("us_certification_count_div", us_certification_count_graph, {});
+							</script>
+						</div> <!-- tab end -->
+					  </div>
+					</div>
+				</div>			
+			</div> <!-- Row end -->	
+		</div>
+		</body>
+		<!-- Footer -->
+		<!-- Footer styling: https://stackoverflow.com/questions/51480958/bootstrap-4-footer-not-at-bottom -->
+        <footer class="d-flex justify-content-center mt-auto">
+            <div class="d-flex justify-content-between col-md-7 col-md mb-3 mt-5">
+				<div class="align-middle">
+					<a class="font-weight-bold small kf-blue kf-links" href="https://github.com/danstd/organic_integrity_flask">Github</a> |
+                    <a class="font-weight-bold small kf-blue kf-links" href="https://organic.ams.usda.gov/Integrity/Developer/APIHelp.aspx">Organic Integrity</a>
+                </div>
+				<div class="align-middle">
+					<i>This product uses USDA’s Organic Integrity Database API but is not endorsed or certified by USDA.</i>
+				</div>
+            </div>
+        </footer>
+</html>

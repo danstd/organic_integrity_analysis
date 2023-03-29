@@ -1,0 +1,35 @@
+# https://stavshamir.github.io/python/dockerizing-a-flask-mysql-app-with-docker-compose/
+
+version: "2"
+services:
+  app:
+    #build points to directory containing dockerfile.
+    build: .
+    links:
+      - db
+    ports:
+      - "5000:5000"
+    env_file: .env
+    depends_on:
+      - db
+    volumes:
+      - ./Application:/opt/Application
+  db:
+    image: mysql:8.0
+    ports:
+      - "32000:3306"
+    env_file: .env
+    environment:
+      DATABASE_NAME: 'organic_integrity'
+
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro
+      - ./init.sql:/data/application/init.sql
+
+  #cron:
+  #  image: cron:latest
+  #  entrypoint: /bin/bash
+  #  command: ["cron", "-f"]
+#crontab -l | \
+#    { cat; echo "0 0 15 * * python /Application/processing/process_setup.py" >> \
+#    /Application/processing/integrity_app_dag_log.log; } | crontab -
