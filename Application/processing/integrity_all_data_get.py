@@ -8,7 +8,7 @@ from zipfile import ZipFile, BadZipFile
 import sys
 import datetime
 import csv
-
+import wget
 # Delete folders from current directory containing folder_name variable
 # if there are more than 5. Set to delete based on sorting by file name - works with standardized timestamp suffix.
 def backup_manage(folder_name, backup_num, FILE_DIR):
@@ -61,30 +61,21 @@ def integrity_all_data_get(processing_path=None):
     print(f"File destination: {integrity_zip}\n")
     print(end_point)
     try:
-        # From https://365datascience.com/tutorials/python-tutorials/python-requests-package/
-        #with requests.get(end_point, stream=True) as r:
-        #    with open(integrity_zip, "wb") as file:
-        #        for chunk in r.iter_content(chunk_size = 16 * 1024):
-        #            file.write(chunk)
-        #with requests.get(end_point) as r:
-        #    with open(integrity_zip, "wb") as file:
-        #            file.write(r.content)
-
-        r = requests.get(end_point, stream=True)
-        with open(integrity_zip, 'wb') as file:
-            shutil.copyfileobj(r.raw, file)
-                    
-    except requests.ConnectionError as er:
+        #r = requests.get(end_point, stream=True)
+        #with open(integrity_zip, 'wb') as file:
+        #    shutil.copyfileobj(r.raw, file)
+        wget.download(url=end_point, out=integrity_zip)
+    #except requests.ConnectionError as er:
+    except Exception as er:
         print("A connection error occured!")
         print(er.message)
         # Remove the new download directory.
         shutil.rmtree(DWNLD_DIR)
-
+    
         # If there was an existing download directory that was renamed with a timestamp, change the directory name back.
         if replace_flag:
             #os.rename(DWNLD_DIR + " replaced " + timestamp, DWNLD_DIR)
-            shutil.move(DWNLD_DIR + " replaced " + timestamp, DWNLD_DIR)
-            
+            shutil.move(DWNLD_DIR + " replaced " + timestamp, DWNLD_DIR)    
         return 1
 
     try:
