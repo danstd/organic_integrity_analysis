@@ -53,7 +53,8 @@ def integrity_all_data_get(processing_path=None):
     os.makedirs(DWNLD_DIR)
 
     # Get the xml data from the Integrity API.
-    end_point = "https://organicapi.ams.usda.gov/IntegrityPubDataServices/OidPublicDataService.svc/rest/GetAllOperationsPublicData?api_key="
+    #end_point = "https://organicapi.ams.usda.gov/IntegrityPubDataServices/OidPublicDataService.svc/rest/GetAllOperationsPublicData?api_key="
+    end_point = "end_point = "https://organicapi.ams.usda.gov/IntegrityPubDataServices/OIDPublicAPI/GetAllOperationsPublicData?api_key="
     end_point = end_point + os.getenv("INTEGRITY_API_KEY")
 
     integrity_zip = DWNLD_DIR + "/" + "integrity_xml.zip"
@@ -68,7 +69,7 @@ def integrity_all_data_get(processing_path=None):
     #except requests.ConnectionError as er:
     except Exception as er:
         print("A connection error occured!")
-        print(er.message)
+        print(er)
         # Remove the new download directory.
         shutil.rmtree(DWNLD_DIR)
     
